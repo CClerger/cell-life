@@ -25,10 +25,8 @@ cells = [
 ]
 
 grid = Grid.new(size, cells)
-puts grid.cells.to_s
+grid.print
 
 grid.prepare_next_generation
-puts grid.cells.to_s
-
 grid.apply_next_generation
-puts grid.cells.to_s
+grid.print

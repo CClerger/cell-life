@@ -52,4 +52,26 @@ class Grid
     cell = cells[i_cell][j_cell]
     !cell.nil? && cell.state == :alive
   end
+
+  def print
+    puts "Generation #{generation}:"
+    (0..size - 1).each do |row|
+      line = ''
+      (0..size - 1).each do |col|
+        cell = cells[col][row]
+        line += string_representation(cell)
+      end
+      puts line
+    end
+  end
+
+  def string_representation(cell)
+    if cell.nil?
+      '0'
+    elsif cell.state == :dead
+      '1'
+    else
+      '2'
+    end
+  end
 end
