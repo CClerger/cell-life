@@ -4,12 +4,13 @@ require './cell'
 
 # Represents a grid filled with cells
 class Grid
-  attr_accessor :size, :generation, :cells
+  attr_accessor :size, :generation, :cells, :max_generation
 
-  def initialize(size, cells)
+  def initialize(size, cells, max_generation)
     @size = size
     @generation = 0
     @cells = cells
+    @max_generation = max_generation
   end
 
   def prepare_next_generation
@@ -51,6 +52,19 @@ class Grid
   def alive_cell?(i_cell, j_cell)
     cell = cells[i_cell][j_cell]
     !cell.nil? && cell.state == :alive
+  end
+
+  def final_state?
+    (0..size - 1).each do |i|
+      (0..size - 1).each do |j|
+        return false if alive_cell?(i, j)
+      end
+    end
+    true
+  end
+
+  def max_generation_reached?
+    generation >= max_generation
   end
 
   def print
