@@ -25,8 +25,22 @@ cells = [
 ]
 
 grid = Grid.new(size, cells)
+puts 'Welcome!'
 grid.print
 
-grid.prepare_next_generation
-grid.apply_next_generation
-grid.print
+answer = nil
+while answer != 'n'
+  puts 'Do you want to see the next generation (y/n)?'
+  answer = gets.chomp.downcase
+  puts ''
+  case answer
+  when 'y'
+    grid.prepare_next_generation
+    grid.apply_next_generation
+    grid.print
+  when 'n'
+    puts 'Goodbye!'
+  else
+    puts "Invalid answer: please type 'y' or 'n'"
+  end
+end
