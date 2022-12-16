@@ -58,9 +58,11 @@ end
 # 1 1 2 0 0
 # 1 2 1 2 1
 
+max_generation = 50
+
 init_mode = nil
 until %w[d r].include?(init_mode)
-  puts 'Do you want the default grid (d) or a random grid (r)?'
+  puts 'Welcome! Do you want the default grid (d) or a random grid (r)?'
   init_mode = gets.chomp.downcase
   puts ''
   case init_mode
@@ -73,17 +75,21 @@ until %w[d r].include?(init_mode)
       [Cell.new(:alive), Cell.new(:dead), Cell.new(:dead), nil, Cell.new(:dead)],
       [nil, Cell.new(:dead), nil, nil, Cell.new(:alive)]
     ]
-    max_generation = 50
   when 'r'
-    size = 5
+    size = nil
+    until !size.nil? && !Integer(size, exception: false).nil? && Integer(size).positive?
+      puts 'Enter the desired size of the grid:'
+      size = gets.chomp.downcase
+      puts ''
+    end
+    size = Integer(size)
     cells = Array.new(size) { Array.new(size) { init_random_cell } }
-    max_generation = 50
   else puts "Invalid answer: please type 'd' or 'r'"
   end
 end
 
+puts 'Here is your starting grid:'
 grid = Grid.new(size, cells, max_generation)
-puts 'Welcome! Here is your starting grid:'
 grid.print
 
 run_mode = nil
