@@ -8,11 +8,16 @@ class Cell
     @state = state
   end
 
-  def compute_next_stage(live_neighbors)
-    @next_stage = if (state == :alive && [2, 3].include?(live_neighbors)) || (state == :dead && live_neighbors == 3)
+  def compute_next_state(live_neighbors)
+    @next_state = if (state == :alive && [2, 3].include?(live_neighbors)) || (state == :dead && live_neighbors == 3)
                     :alive
                   else
                     :dead
                   end
+  end
+
+  def apply_next_state
+    @state = next_state
+    @next_state = nil
   end
 end

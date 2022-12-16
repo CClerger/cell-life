@@ -12,11 +12,20 @@ class Grid
     @cells = cells
   end
 
-  def simulate_next_generation
+  def prepare_next_generation
     (0..size - 1).each do |i|
       (0..size - 1).each do |j|
         cell = cells[i][j]
-        cell&.compute_next_stage(count_live_neighbors(i, j))
+        cell&.compute_next_state(count_live_neighbors(i, j))
+      end
+    end
+  end
+
+  def apply_next_generation
+    (0..size - 1).each do |i|
+      (0..size - 1).each do |j|
+        cell = cells[i][j]
+        cell&.apply_next_state
       end
     end
     @generation += 1
